@@ -1,5 +1,9 @@
-# Byte-compiled / optimized / DLL files
 __pycache__/
+.venv/
+.pytest_cache/
+htmlcov/
+
+# Byte-compiled / optimized / DLL files
 *.py[codz]
 *$py.class
 
@@ -48,7 +52,6 @@ coverage.xml
 *.cover
 *.py.cover
 .hypothesis/
-.pytest_cache/
 cover/
 
 # Translations
@@ -137,7 +140,6 @@ celerybeat.pid
 # Environments
 .env
 .envrc
-.venv
 env/
 venv/
 ENV/
