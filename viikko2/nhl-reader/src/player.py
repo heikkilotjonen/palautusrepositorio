@@ -12,7 +12,7 @@ class Player:
 
         self.games = dict['games']
 
-        self.id = dict['id']
+        #self.id = dict['id']
 
     
     def __str__(self):
