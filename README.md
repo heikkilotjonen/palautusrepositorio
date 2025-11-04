@@ -1,2 +1,2 @@
-# ohtu-s25-palatuukset
+# ohtu-s25-palautukset
 https://github.com/heikkilotjonen/ohtuvarasto
