@@ -16,4 +16,4 @@ class Player:
 
     
     def __str__(self):
-        return self.name + "" + self.team + "" + str(self.goals) + "" + str(self.assists)
+        return self.name + "  " + self.team + "  " + str(self.goals) + " + " + str(self.assists) + " = " + str(self.goals + self.assists)

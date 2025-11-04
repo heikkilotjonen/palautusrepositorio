@@ -16,7 +16,13 @@ def main():
 
     print("Oliot:")
 
+    copy = []
+
     for player in players:
+        if player.nationality == "FIN":
+            copy.append(player)
+    copy.sort(key=lambda p: p.goals + p.assists, reverse=True)
+    for player in copy:
         print(player)
 
 if __name__ == "__main__":
