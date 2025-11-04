@@ -20,7 +20,8 @@ class PlayerStats:
     def top_scorers_by_nationality(self, nationality):
         players = self.player_reader.get_players()
         players = [p for p in players if p.nationality == nationality]
-        return players.sort(key=lambda p: p.goals + p.assists, reverse=True)  
+        players.sort(key=lambda p: p.goals + p.assists, reverse=True)  
+        return players
 
 def main():
     url = "https://studies.cs.helsinki.fi/nhlstats/2024-25/players"
@@ -30,6 +31,6 @@ def main():
 
     for player in players:
         print(player)
-        
+
 if __name__ == "__main__":
     main()
