@@ -1,16 +1,33 @@
+"""NHL player statistics reader and formatter.
+
+This module provides functionality to fetch and display NHL player statistics
+by nationality and season using the NHL stats API.
+"""
+
 import requests
-from player import Player
 from rich.console import Console
 from rich.table import Table
-import rich
+from player import Player
 
 
 class PlayerReader:
+    """A class to read player data from NHL stats API."""
+
     def __init__(self, url):
+        """Initialize PlayerReader with API URL.
+
+        Args:
+            url (str): The NHL stats API URL
+        """
         self.url = url
-    
+
     def get_players(self):
-        response = requests.get(self.url).json()
+        """Fetch and parse player data from the API.
+
+        Returns:
+            list: List of Player objects
+        """
+        response = requests.get(self.url, timeout=10).json()
         players = []
         for player_dict in response:
             player = Player(player_dict)
@@ -18,13 +35,28 @@ class PlayerReader:
         return players
 
 class PlayerStats:
+    """A class to analyze and filter player statistics."""
+
     def __init__(self, player_reader):
+        """Initialize PlayerStats with a player reader.
+
+        Args:
+            player_reader (PlayerReader): The reader to fetch player data
+        """
         self.player_reader = player_reader
-    
+
     def top_scorers_by_nationality(self, nationality):
+        """Get top scorers filtered by nationality.
+
+        Args:
+            nationality (str): The nationality to filter by
+
+        Returns:
+            list: List of players sorted by points (goals + assists)
+        """
         players = self.player_reader.get_players()
         players = [p for p in players if p.nationality == nationality]
-        players.sort(key=lambda p: p.goals + p.assists, reverse=True)  
+        players.sort(key=lambda p: p.goals + p.assists, reverse=True)
         return players
 
 def choose_country():
@@ -54,27 +86,19 @@ def get_players(country, season):
     return stats.top_scorers_by_nationality(country)
 
 def print_table(players, season, country):
-    if len(players) == 0:
+    if not players:
         print(f"No players from {country} found in season {season}.")
         return
-    
-    console = Console()
-    table = Table(title=f"Season {season} players from {country}")
 
-    table.add_column("Name", style="cyan", no_wrap=True)
-    table.add_column("Teams", style="magenta")
-    table.add_column("Goals", justify="right")
-    table.add_column("Assists", justify="right")
-    table.add_column("Points", justify="right")
-    for player in players:
-        table.add_row(
-            player.name,
-            player.team,
-            str(player.goals),
-            str(player.assists),
-            str(player.goals + player.assists)
-        )
-    console.print(table)
+    table = Table(title=f"Season {season} players from {country}", show_header=True)
+    for col in [("Name", "cyan", True), ("Teams", "magenta", False),
+                ("Goals", "right", False), ("Assists", "right", False), ("Points", "right", False)]:
+        table.add_column(col[0], style=col[1], no_wrap=col[2] if len(col) > 2 else False)
+
+    for p in players:
+        table.add_row(p.name, p.team, str(p.goals), str(p.assists), str(p.goals + p.assists))
+
+    Console().print(table)
 
 def main():
     season = choose_season()

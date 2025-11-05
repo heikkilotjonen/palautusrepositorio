@@ -1,19 +1,16 @@
 class Player:
-    def __init__(self, dict):
-        self.name = dict['name']
+    def __init__(self, data):
+        self.name = data['name']
 
-        self.nationality = dict['nationality']
+        self.nationality = data['nationality']
 
-        self.assists = dict['assists']
+        self.assists = data['assists']
 
-        self.goals = dict['goals']
+        self.goals = data['goals']
 
-        self.team = dict['team']
+        self.team = data['team']
 
-        self.games = dict['games']
+        self.games = data['games']
 
-        #self.id = dict['id']
-
-    
     def __str__(self):
         return self.name + "  " + self.team + "  " + str(self.goals) + " + " + str(self.assists) + " = " + str(self.goals + self.assists)
