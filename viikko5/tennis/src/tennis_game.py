@@ -14,29 +14,15 @@ class TennisGame:
             print("Invalid player")
 
     def get_player1_score(self):
-        for i in range(0, 4):
-            if i == self.player1_score:
-                if i == 0:
-                    return "Love"
-                elif i == 1:
-                    return "Fifteen"
-                elif i == 2:
-                    return "Thirty"
-                elif i == 3:
-                    return "Forty"
+        score_names = ["Love", "Fifteen", "Thirty", "Forty"]
+        if 0 <= self.player1_score < 4:
+            return score_names[self.player1_score]
                 
                 
     def get_player2_score(self):
-        for i in range(0, 4):
-            if i == self.player2_score:
-                if i == 0:
-                    return "Love"
-                if i == 1:
-                    return "Fifteen"
-                elif i == 2:
-                    return "Thirty"
-                elif i == 3:
-                    return "Forty"
+        score_names = ["Love", "Fifteen", "Thirty", "Forty"]
+        if 0 <= self.player2_score < 4:
+            return score_names[self.player2_score]
                 
     def get_score(self):
         score = ""
