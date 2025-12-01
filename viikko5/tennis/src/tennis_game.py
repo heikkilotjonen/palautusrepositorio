@@ -13,30 +13,16 @@ class TennisGame:
         else:
             print("Invalid player")
 
+    def _get_score_text(self, score):
+        if 0 <= score < 4:
+            return ["Love", "Fifteen", "Thirty", "Forty"][score]
+        return None
+
     def get_player1_score(self):
-        for i in range(0, 4):
-            if i == self.player1_score:
-                if i == 0:
-                    return "Love"
-                elif i == 1:
-                    return "Fifteen"
-                elif i == 2:
-                    return "Thirty"
-                elif i == 3:
-                    return "Forty"
-                
-                
+        return self._get_score_text(self.player1_score)
+
     def get_player2_score(self):
-        for i in range(0, 4):
-            if i == self.player2_score:
-                if i == 0:
-                    return "Love"
-                if i == 1:
-                    return "Fifteen"
-                elif i == 2:
-                    return "Thirty"
-                elif i == 3:
-                    return "Forty"
+        return self._get_score_text(self.player2_score)
                 
     def get_score(self):
         score = ""
