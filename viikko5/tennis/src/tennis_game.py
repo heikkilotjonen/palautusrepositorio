@@ -11,32 +11,18 @@ class TennisGame:
         elif player_name == self.player2_name:
             self.player2_score = self.player2_score + 1
         else:
-            print("Invalid player")
+            raise ValueError("Invalid player")
 
     def get_player1_score(self):
-        for i in range(0, 4):
-            if i == self.player1_score:
-                if i == 0:
-                    return "Love"
-                elif i == 1:
-                    return "Fifteen"
-                elif i == 2:
-                    return "Thirty"
-                elif i == 3:
-                    return "Forty"
+        score_names = ["Love", "Fifteen", "Thirty", "Forty"]
+        if 0 <= self.player1_score < 4:
+            return score_names[self.player1_score]
                 
                 
     def get_player2_score(self):
-        for i in range(0, 4):
-            if i == self.player2_score:
-                if i == 0:
-                    return "Love"
-                if i == 1:
-                    return "Fifteen"
-                elif i == 2:
-                    return "Thirty"
-                elif i == 3:
-                    return "Forty"
+        score_names = ["Love", "Fifteen", "Thirty", "Forty"]
+        if 0 <= self.player2_score < 4:
+            return score_names[self.player2_score]
                 
     def get_score(self):
         score = ""
@@ -64,9 +50,9 @@ class TennisGame:
                 score = f"Win for {self.player2_name}"
 
         else:
-            player_1_score = self.get_player1_score()
-            player_2_score = self.get_player2_score()
-            score = player_1_score +"-"+ player_2_score
+            player1_score = self.get_player1_score()
+            player2_score = self.get_player2_score()
+            score = player1_score + "-" + player2_score
 
 
         return score
