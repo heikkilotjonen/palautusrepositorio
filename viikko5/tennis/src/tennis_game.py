@@ -50,9 +50,9 @@ class TennisGame:
                 score = f"Win for {self.player2_name}"
 
         else:
-            player_1_score = self.get_player1_score()
-            player_2_score = self.get_player2_score()
-            score = player_1_score +"-"+ player_2_score
+            player1_score = self.get_player1_score()
+            player2_score = self.get_player2_score()
+            score = player1_score + "-" + player2_score
 
 
         return score
