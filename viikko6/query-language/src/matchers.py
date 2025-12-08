@@ -70,6 +70,7 @@ class Or:
                 return True
         return False
 
+
 class QueryBuilder:
     def __init__(self, matcher=All()):
         self.query_object = matcher
