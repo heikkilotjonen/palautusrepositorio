@@ -13,19 +13,31 @@ class Summa:
     def __init__(self, sovelluslogiikka, lue_syote):
         self._sovelluslogiikka = sovelluslogiikka
         self._lue_syote = lue_syote
+        self._viimeisin = 0
 
     def suorita(self):
         luku = int(self._lue_syote() or 0)
+        self._viimeisin = luku
         self._sovelluslogiikka.plus(luku)
+
+    def kumoa(self):
+        self._sovelluslogiikka.miinus(self._viimeisin)
+        self._viimeisin = 0
 
 class Erotus:
     def __init__(self, sovelluslogiikka, lue_syote):
         self._sovelluslogiikka = sovelluslogiikka
         self._lue_syote = lue_syote
+        self._viimeisin = 0
 
     def suorita(self):
         luku = int(self._lue_syote() or 0)
+        self._viimeisin = luku
         self._sovelluslogiikka.miinus(luku)
+
+    def kumoa(self):
+        self._sovelluslogiikka.plus(self._viimeisin)
+        self._viimeisin = 0
 
 class Nollaus:
     def __init__(self, sovelluslogiikka, lue_syote):
@@ -34,6 +46,14 @@ class Nollaus:
     def suorita(self):
         self._sovelluslogiikka.nollaa()
 
+class Kumoa:
+    def __init__(self, kayttoliittyma):
+        self._kayttoliittyma = kayttoliittyma
+
+    def suorita(self):
+        viimeisin = self._kayttoliittyma._viimeisin_komento
+        if viimeisin:
+            viimeisin.kumoa()
 
 ################################################
 
@@ -45,7 +65,7 @@ class Kayttoliittyma:
             Komento.SUMMA: Summa(sovelluslogiikka, self._lue_syote),
             Komento.EROTUS: Erotus(sovelluslogiikka, self._lue_syote),
             Komento.NOLLAUS: Nollaus(sovelluslogiikka, self._lue_syote),
-            #Komento.KUMOA: Kumoa(sovelluslogiikka, self._lue_syote) # ei ehkä tarvita täällä...
+            Komento.KUMOA: Kumoa(self) # ei ehkä tarvita täällä...
         }
 
     def kaynnista(self):
@@ -95,6 +115,7 @@ class Kayttoliittyma:
         # haetaan dict:istä oikea komento
         komento_olio = self._komennot[komento]
         komento_olio.suorita()
+        self._viimeisin_komento = komento_olio
         self._kumoa_painike["state"] = constants.NORMAL
 
         if self._sovelluslogiikka.arvo() == 0:
