@@ -13,6 +13,11 @@ class TennisGame:
         else:
             raise ValueError("Invalid player")
 
+    def _get_score_text(self, score):
+        if 0 <= score < 4:
+            return ["Love", "Fifteen", "Thirty", "Forty"][score]
+        return None
+
     def get_player1_score(self):
         score_names = ["Love", "Fifteen", "Thirty", "Forty"]
         if 0 <= self.player1_score < 4:
